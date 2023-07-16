@@ -20,11 +20,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from core.views import index, contact
-
 urlpatterns = [
-    path('', index, name='index'),
+    # Loop through all of the paths in /core/urls.py before going on to test 'items/'
+    path('', include('core.urls')),
     path('items/', include('item.urls')),
-    path('contact/', contact, name='contact'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Hack.  Do not do in production
