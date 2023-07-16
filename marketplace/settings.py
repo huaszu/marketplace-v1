@@ -67,7 +67,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # To include MEDIA_URL variable in template context and resolve `NameError: name 'MEDIA' is not defined`, set explicitly:
-                'django.template.context_processors.media',
+                # 'django.template.context_processors.media',
+                # Did not need this code after adding ` + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)` in /marketplace/urls.py
             ],
         },
     },
