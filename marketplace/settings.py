@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# If user tries to visit page they do not have access to, redirect to this URL:
+LOGIN_URL = '/login/'
+# Change away from Django default that login redirects to /accounts/profile
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 

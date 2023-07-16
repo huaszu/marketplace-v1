@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+# URLconf:
 urlpatterns = [
     # Loop through all of the paths in /core/urls.py before going on to test 'items/'
     path('', include('core.urls')),
