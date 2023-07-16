@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from item.models import Category, Item
 
@@ -17,8 +17,17 @@ def contact(request):
     return render(request, 'core/contact.html')
 
 def signup(request):
-    # Create instance of form
-    form = SignupForm
+    # If form has been submitted
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+
+        if form.is_valid():
+            form.save() # Creates user in db
+
+            return redirect('/login/') # Fix later
+    else: # Not a POST request
+        # Create instance of form
+        form = SignupForm
 
     return render(request, 'core/signup.html', {
         'form': form
