@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Item
+from .forms import NewItemForm
 
 def detail(request, pk):
     # 404 if object does not exist in db
@@ -11,4 +13,28 @@ def detail(request, pk):
     return render(request, 'item/detail.html', {
         'item': item,
         'related_items': related_items
+    })
+
+# Django helps us make sure only logged in user can make a new item.  If not logged in, user is redirected to login page
+@login_required
+def new(request):
+    if request.method == 'POST':
+        # Make sure we get file that user uploads
+        form = NewItemForm(request.POST, request.FILES)
+        # Note: In /item/templates/item/form.html, `enctype="multipart/form-data">` facilitates image upload
+
+        if form.is_valid():
+            # `commit = False` to avoid db error because `created_by` field not yet present
+            # Only create object but not save in db
+            item = form.save(commit=False)
+            item.created_by = request.user
+            item.save()
+
+            return redirect('item:detail', pk=item.id)
+    else: # If request is GET request
+        form = NewItemForm()
+
+    return render(request, 'item/form.html', {
+        'form': form,
+        'title': 'New item', 
     })
