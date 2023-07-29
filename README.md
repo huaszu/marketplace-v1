@@ -7,7 +7,7 @@ An online marketplace where people can buy and sell items.
 ## Table of Contents
 
 - [Tech Stack](#tech-stack)
-- [Features for Users](#features-for-users)
+- [Features for App Users](#features-for-app-users)
 - [Installation](#installation)
 - [Upcoming Features](#upcoming-features)
 - [License](#license)
